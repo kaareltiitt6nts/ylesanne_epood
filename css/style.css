@@ -1,0 +1,126 @@
+body {
+    background-color: #d7eedc;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 0;
+}
+
+#mainContainer {
+    padding: 0.5rem;
+}
+
+nav {
+    margin: 0;
+    padding: 0;
+    height: 4rem;
+    background-color: #5c6e60;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+p {
+    margin: 0;
+}
+
+h1 {
+    margin: 0;
+}
+
+h2 {
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li a {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    margin-left: 1rem;
+}
+
+nav ul li a:hover {
+    background-color: #809785;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+#productCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 12rem;
+    height: 8rem;
+    background-color: bisque;
+    padding: 1.25rem;
+    border: 2px solid black;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+#productsView {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+#cartAmount {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5rem;
+}
+
+#cartItem {
+    background-color: #f7f7f7;
+    padding: 1rem;
+    margin: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #00000025;
+}
+
+#cartView {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+#submitPurchase {
+    padding: 10px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;    
+}
+
+#shopName {
+    font-weight: bold;
+    font-size: x-large;
+}
+
+#cartProductName {
+    width: 1rem;
+}
+
+
+.oldPrice {
+    text-decoration: line-through;
+}
+
+.salePrice {
+    color: red
+}

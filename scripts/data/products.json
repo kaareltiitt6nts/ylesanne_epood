@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "Õun",
+        "price": 0.45,
+        "category": "fruits",
+        "discount": 0
+    },
+    {
+        "id": 2,
+        "name": "Pirn",
+        "price": 0.5,
+        "category": "fruits",
+        "discount": 0
+    },
+    {
+        "id": 3,
+        "name": "Banaan",
+        "price": 2,
+        "category": "fruits",
+        "discount": 0
+    },
+    {
+        "id": 4,
+        "name": "Mandariin",
+        "price": 3,
+        "category": "fruits",
+        "discount": 0
+    },
+    {
+        "id": 5,
+        "name": "Manaan",
+        "price": 10,
+        "category": "fruits",
+        "discount": 50
+    }
+]
