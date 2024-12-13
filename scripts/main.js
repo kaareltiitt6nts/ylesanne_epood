@@ -1,5 +1,5 @@
 import { displayProducts } from "./views/products.js"
-import { getProductsData } from "./api.js"
+import { getProductsByCategory, getProductsData } from "./api.js"
 import { Product } from "./constructors/product.js"
 import { navigateTo } from "./router.js"
 import { cart } from "./constructors/cart.js"
@@ -19,11 +19,6 @@ export function setNavFavItemCount(amount) {
 }
 
 const init = async () => {
-    const productsData = await getProductsData()
-    const products = productsData.map((item) => 
-        new Product(item.id, item.name, item.price, item.category, item.discount)
-    )
-
     const shopName = document.querySelector("#shopName")
     const toProducts = document.querySelector("#toProducts")
     const toCart = document.querySelector("#toCart")
@@ -31,7 +26,7 @@ const init = async () => {
 
     toProducts.onclick = (event) => {
         event.preventDefault()
-        navigateTo("products", products)
+        navigateTo("products", "all")
     }
     toCart.onclick = (event) => {
         event.preventDefault()
@@ -43,7 +38,7 @@ const init = async () => {
     }
     shopName.onclick = () => init() // ??
 
-    displayProducts(products)
+    displayProducts("men's clothing")
 }
 
 document.addEventListener("DOMContentLoaded", init)

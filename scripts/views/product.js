@@ -1,9 +1,11 @@
+import { getProductById } from "../api.js"
 import { cart } from "../constructors/cart.js"
 import { customer } from "../constructors/customer.js"
-import { PRODUCT_CATEGORIES } from "../util.js"
 import { getFormattedPrice } from "../util.js"
 
-export function displayProduct(product) {
+export const displayProduct = async (productId) => {
+    const product = await getProductById(productId)
+
     const mainContainer = document.querySelector("#mainContainer")
     mainContainer.innerHTML = ""
 
@@ -17,7 +19,7 @@ export function displayProduct(product) {
         <h1>${product.name}</h1>
         <div id="productDetailView">
             <p>Hind: ${getFormattedPrice(product.finalPrice)}</p>
-            <p>${PRODUCT_CATEGORIES[product.category]}</p>
+            <p>${product.category}</p>
             <button id="favButton">Lisa lemmikuks</button>
             <form id="addToCart">
                 <input type="number" id="amount" value="1" min="1">

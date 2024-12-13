@@ -1,8 +1,9 @@
 import { setNavCartItemCount } from "../main.js"
 
 export class Cart {
-    constructor() {
-        this.items = []
+    constructor(userId, items = []) {
+        this.userId = userId
+        this.items = items
     }
 
     get totalItems() {
@@ -67,4 +68,4 @@ export class Cart {
     }
 }
 
-export const cart = new Cart()
+export const cart = new Cart(0)

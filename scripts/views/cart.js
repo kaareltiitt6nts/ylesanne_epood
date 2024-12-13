@@ -29,12 +29,12 @@ function createCartItem(product, amount) {
 
     removeFromCart.onclick = () => {
         cart.removeProduct(product)
-        displayCart(cart)
+        displayCart()
     }
 
     addButton.onclick = () => {
         cart.updateProductAmount(product, 1)
-        displayCart(cart)
+        displayCart()
     }
 
     removeButton.onclick = () => {
@@ -44,13 +44,13 @@ function createCartItem(product, amount) {
             cart.removeProduct(product)
         }
 
-        displayCart(cart)
+        displayCart()
     }
 
     return element
 }
 
-export function displayCart(cart) {
+export function displayCart() {
     const mainContainer = document.querySelector("#mainContainer")
     mainContainer.innerHTML = ""
 
@@ -66,13 +66,13 @@ export function displayCart(cart) {
         <button id="submitPurchase">Soorita ost</button>
     `
 
+    const price = cart.getTotalPrice()
+
     const cartView = cartContainer.querySelector("#cartView")
     const totalPrice = cartContainer.querySelector("#totalPrice")
     const vat = cartContainer.querySelector("#vat")
     const totalPriceVat = cartContainer.querySelector("#totalPriceVat")
     const submitPurchase = cartContainer.querySelector("#submitPurchase")
-
-    const price = cart.getTotalPrice()
 
     totalPrice.innerHTML = `Koguhind: ${getFormattedPrice(price)}`
     vat.innerHTML = `Käibemaks: ${getFormattedPrice(calculateVat(price))}`
@@ -92,7 +92,7 @@ export function displayCart(cart) {
             alert("Ost sooritatud!")
             customer.placeOrder(new Order(0, cart)) // tee id
             cart.clear()
-            displayCart(cart)
+            displayCart()
             setNavCartItemCount(cart.totalItems)
         }
         else {

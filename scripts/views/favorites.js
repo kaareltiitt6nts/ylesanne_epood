@@ -1,6 +1,7 @@
+import { customer } from "../constructors/customer.js"
 import { createProductCard } from "./products.js"
 
-export function displayFavorites(favorites) {
+export function displayFavorites() {
     const mainContainer = document.querySelector("#mainContainer")
     mainContainer.innerHTML = ""
 
@@ -10,6 +11,8 @@ export function displayFavorites(favorites) {
 
     const favView = document.createElement("div")
     favView.id = "productsView"
+
+    const favorites = customer.favorites
 
     mainContainer.append(favContainer)
     favContainer.append(favView)

@@ -5,10 +5,10 @@ import { displayProducts } from "./views/products.js";
 
 export function navigateTo(view, params) {
     const views = {
-        products: () => displayProducts(params),
-        cart: () => displayCart(params),
+        products: () => displayProducts(params || "all"),
         product: () => displayProduct(params),
-        favorites: () => displayFavorites(params)
+        cart: () => displayCart(),
+        favorites: () => displayFavorites()
     }
 
     if (views[view]) {

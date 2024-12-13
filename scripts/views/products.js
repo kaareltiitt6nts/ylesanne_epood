@@ -1,7 +1,8 @@
+import { getAllCategories, getProductsByCategory } from "../api.js"
 import { customer } from "../constructors/customer.js"
-import { PRODUCT_CATEGORIES } from "../util.js"
+import { Product } from "../constructors/product.js"
 import { navigateTo } from "../router.js"
-import { getFormattedPrice } from "../util.js"
+import { getFormattedPrice, PRODUCT_CATEGORIES } from "../util.js"
 
 export function createProductCard(product) {
     let productCard = document.createElement("div")
@@ -13,10 +14,13 @@ export function createProductCard(product) {
     : `${getFormattedPrice(product.finalPrice)}`
 
     productCard.innerHTML = `
-        <h1>${product.name}</h1>
-        <p id="price">${priceHtml}</p>
-        <p>${PRODUCT_CATEGORIES[product.category]}</p>
-        <button id="favButton">Lisa lemmikuks</button>
+        <img id="productCardImage" src="${product.image}"></img>
+        <div id="productCardInfo">
+            <p id="productCardInfoName">${product.name}</p>
+            <p id="price">${priceHtml}</p>
+            <p>${PRODUCT_CATEGORIES[product.category]}</p>
+            <button id="favButton">Lisa lemmikuks</button>
+        </div>
     `
 
     const favButton = productCard.querySelector("#favButton")
@@ -37,13 +41,20 @@ export function createProductCard(product) {
     }
 
     productCard.addEventListener("click", () => {
-        navigateTo("product", product)
+        navigateTo("product", product.id)
     })
 
     return productCard
 }
 
-export function displayProducts(products) {
+export const displayProducts = async (category) => {
+    const productsData = await getProductsByCategory(category)
+    const products = productsData.map((item) => 
+        new Product(item.id, item.title, item.price, item.category, item.discount, item.image)
+    )
+
+    const productCategories = await getAllCategories()
+
     const mainContainer = document.querySelector("#mainContainer")
     mainContainer.innerHTML = ""
 
@@ -51,13 +62,31 @@ export function displayProducts(products) {
     productsContainer.id = "productsContainer"
     productsContainer.innerHTML = "<h1>Tooted</h1>"
 
+    const productsFilter = document.createElement("select")
+    productsFilter.id = "productsFilter"
+    productsFilter.value = category
+
     const productsView = document.createElement("div")
     productsView.id = "productsView"
 
     mainContainer.append(productsContainer)
+    productsContainer.append(productsFilter)
     productsContainer.append(productsView)
+
+    productCategories.forEach(category => {
+        const option = document.createElement("option")
+        option.value = category
+        option.label = PRODUCT_CATEGORIES[category]
+        
+        productsFilter.append(option)
+    })
 
     products.forEach(product => {
         productsView.append(createProductCard(product))
     });
+
+    productsFilter.onchange = (event) => {
+        event.preventDefault()
+        displayProducts(productsFilter.value)
+    }
 }
