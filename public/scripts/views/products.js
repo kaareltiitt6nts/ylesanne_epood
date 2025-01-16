@@ -64,7 +64,6 @@ export const displayProducts = async (category) => {
 
     const productsFilter = document.createElement("select")
     productsFilter.id = "productsFilter"
-    productsFilter.value = category
 
     const productsView = document.createElement("div")
     productsView.id = "productsView"
@@ -72,6 +71,12 @@ export const displayProducts = async (category) => {
     mainContainer.append(productsContainer)
     productsContainer.append(productsFilter)
     productsContainer.append(productsView)
+
+    // k6ik kategooria
+    const selectOption = document.createElement("option")
+    selectOption.value = "select"
+    selectOption.label = PRODUCT_CATEGORIES[selectOption.value]
+    productsFilter.append(selectOption)
 
     productCategories.forEach(category => {
         const option = document.createElement("option")

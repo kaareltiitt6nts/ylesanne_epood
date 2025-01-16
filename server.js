@@ -109,6 +109,7 @@ app.get('/products/categories', async (req, res) => {
         const data = JSON.parse(rawData);
 
         const cat = []
+        cat.push("all")
         data.forEach(element => {
             if (cat.includes(element.category)) {
                 return

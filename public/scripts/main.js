@@ -38,7 +38,7 @@ const init = async () => {
     }
     shopName.onclick = () => init() // ??
 
-    displayProducts("all")
+    displayProducts()
 }
 
 document.addEventListener("DOMContentLoaded", init)

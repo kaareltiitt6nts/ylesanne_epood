@@ -6,7 +6,8 @@ export const PRODUCT_CATEGORIES = { // kategooriate tõlked (TEE JSON!!!)
     "electronics": "Elektroonika",
     "women's clothing": "Naiste riided",
     "men's clothing": "Meeste riided",
-    "jewelery": "Ehted"
+    "jewelery": "Ehted",
+    "select": "Vali kategooria"
 }
 
 export function calculateVat(totalPrice) {
