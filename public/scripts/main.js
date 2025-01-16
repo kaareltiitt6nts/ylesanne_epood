@@ -26,7 +26,7 @@ const init = async () => {
 
     toProducts.onclick = (event) => {
         event.preventDefault()
-        navigateTo("products", "all")
+        navigateTo("products")
     }
     toCart.onclick = (event) => {
         event.preventDefault()
@@ -36,7 +36,10 @@ const init = async () => {
         event.preventDefault()
         navigateTo("favorites", customer.favorites)
     }
-    shopName.onclick = () => init() // ??
+    shopName.onclick = (event) => {
+        event.preventDefault()
+        navigateTo("products")
+    }
 
     displayProducts()
 }
