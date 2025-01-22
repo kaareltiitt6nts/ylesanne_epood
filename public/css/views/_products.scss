@@ -1,0 +1,54 @@
+#productCard {
+    width: 14rem;
+    height: fit-content;
+    background-color: colors.$productCardBackground;
+    border: 2px solid colors.$productCardBorder;
+    flex-shrink: 0;
+    box-shadow: 5px 5px 5px colors.$boxShadowColor;
+    cursor: pointer;
+    
+    &:hover {
+        translate: scale(2, 2);
+    }
+
+    > #productCardImage {
+        background-color: colors.$productCardBackground;
+        aspect-ratio: 1;
+        width: 100%;
+    }
+
+    > #productCardInfo {
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        
+        > #productCardInfoName {
+            text-align: center;
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            text-wrap: nowrap;
+        }
+    }
+}
+
+#productsContainer {
+    > #productsView {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+    }
+}
+
+
+.oldPrice {
+    text-decoration: line-through;
+}
+
+.salePrice {
+    color: colors.$saleTextColor
+}

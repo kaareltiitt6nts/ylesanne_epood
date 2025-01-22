@@ -1,10 +1,15 @@
+// misc
+$boxShadowColor : #00000025;
+
+// nav
 $navBackground : #5c6e60;
 $bodyBackground : #d7eedc;
 $anchorColor: #fff;
 
+// product card
 $productCardBackground: bisque;
 $productCardBorder: darken($color: $productCardBackground, $amount: 40);
-
-$cartItemBackground: #f7f7f7;
-
 $saleTextColor: rgb(210, 0, 0);
+
+// cart
+$cartItemBackground: #f7f7f7;
