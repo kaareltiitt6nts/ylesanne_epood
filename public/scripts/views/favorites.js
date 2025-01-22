@@ -6,7 +6,7 @@ export function displayFavorites() {
     mainContainer.innerHTML = ""
 
     const favContainer = document.createElement("div")
-    favContainer.id = "favContainer"
+    favContainer.id = "productsContainer"
     favContainer.innerHTML = "<h1>Lemmikud</h1>"
 
     const favView = document.createElement("div")
