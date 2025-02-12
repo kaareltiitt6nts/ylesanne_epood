@@ -1,7 +1,9 @@
+import { getProductById } from "../api.js"
 import { customer } from "../constructors/customer.js"
+import { getFavorites } from "../localstorage.js"
 import { createProductCard } from "./products.js"
 
-export function displayFavorites() {
+export async function displayFavorites() {
     const mainContainer = document.querySelector("#mainContainer")
     mainContainer.innerHTML = ""
 
@@ -12,7 +14,7 @@ export function displayFavorites() {
     const favView = document.createElement("div")
     favView.id = "productsView"
 
-    const favorites = customer.favorites
+    const favorites = await getFavorites()
 
     mainContainer.append(favContainer)
     favContainer.append(favView)
@@ -21,8 +23,11 @@ export function displayFavorites() {
         favView.innerHTML = "Te pole ühtegi lemmikut toodet lisanud."
     }
     else {
-        favorites.forEach(product => {
-            favView.append(createProductCard(product))
+        favorites.forEach(productId => {
+            const product = getProductById(productId)
+            if (product) {
+                favView.append(createProductCard(product))
+            }
         });
     }
 }    

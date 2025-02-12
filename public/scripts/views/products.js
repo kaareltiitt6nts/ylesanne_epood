@@ -29,7 +29,7 @@ export function createProductCard(product) {
     }
 
     favButton.onclick = (event) => {
-        if (!customer.hasFavorite(product)) {
+        if (!customer.hasFavorite(product.id)) {
             favButton.innerHTML = "Eemalda lemmikutest"
         }
         else {
@@ -37,7 +37,7 @@ export function createProductCard(product) {
         }
 
         event.stopPropagation()
-        customer.toggleFavorite(product)
+        customer.toggleFavorite(product.id)
     }
 
     productCard.addEventListener("click", () => {

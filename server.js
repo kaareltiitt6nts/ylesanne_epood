@@ -1,7 +1,8 @@
+// todo: post, delete meetodid salvestamiseks
+
 import express from "express"
 import axios from "axios"
 import fs from "fs/promises"
-import { log } from "console"
 
 const app = express()
 const PORT = 3000
@@ -49,7 +50,6 @@ const fetchProductsByCategory = async (category) => {
     return products
 }
 
-// kas fail on tyhi
 const isFileEmpty = async (path) => {
     try {
         const rawData = await fs.readFile(path, 'utf-8');
@@ -64,26 +64,19 @@ app.get('/products', async (req, res) => {
     try {
         const filePath = './data/products.json';
 
-        // Kontrolli, kas fail on tühi
         const emptyFile = await isFileEmpty(filePath);
 
-        // Kui fail on tühi, lae andmed API-st ja salvesta need
         if (emptyFile) {
             console.log('Fail on tühi. Laadin andmed FakeStore API-st...');
             await fetchAndSaveProducts();
         }
 
-        // Loe andmed failist
         const rawData = await fs.readFile(filePath, 'utf-8');
-
-        // Parssige andmed
         const products = JSON.parse(rawData);
 
-        // Seadista vastuse päised
         res.setHeader('Content-Type', 'application/json');
         res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
 
-        // Tagasta andmed kasutajale
         res.status(200).json(products);
     } catch (error) {
         console.error(error);
@@ -95,37 +88,30 @@ app.get('/products/categories', async (req, res) => {
     try {
         const filePath = './data/products.json';
 
-        // Kontrolli, kas fail on tühi
         const emptyFile = await isFileEmpty(filePath);
 
-        // Kui fail on tühi, lae andmed API-st ja salvesta need
         if (emptyFile) {
             console.log('Fail on tühi. Laadin andmed FakeStore API-st...');
             await fetchAndSaveProducts();
         }
 
-        // Loe andmed failist
         const rawData = await fs.readFile(filePath, 'utf-8');
         const data = JSON.parse(rawData);
 
-        const cat = []
-        cat.push("all")
+        const categories = []
+        categories.push("all")
         data.forEach(element => {
-            if (cat.includes(element.category)) {
+            if (categories.includes(element.category)) {
                 return
             }
 
-            cat.push(element.category)
+            categories.push(element.category)
         });
 
-        // Seadista vastuse päised
         res.setHeader('Content-Type', 'application/json');
         res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
 
-        console.log(cat)
-
-        // Tagasta andmed kasutajale
-        res.status(200).json(cat);
+        res.status(200).json(categories);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Andmete lugemine ebaõnnestus' });
@@ -158,8 +144,7 @@ app.get("/products/category/:cat", async (req, res) => {
     }
 })
 
-
-// API: Käsitsi andmete uuesti laadimine ja faili salvestamine
+// api - andmete manuaalne laadimine ja faili salvestamine
 app.get('/fetch-products', async (req, res) => {
     try {
         await fetchAndSaveProducts();
