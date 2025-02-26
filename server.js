@@ -155,6 +155,79 @@ app.get('/fetch-products', async (req, res) => {
     }
 });
 
+app.get("/favorites", async (req, res) => {
+    const filePath = "./data/favorites.json"
+    const isEmpty = await isFileEmpty(filePath)
+    if (isEmpty) {
+        console.log("Faili ei leitud või on tühi.")
+        res.status(500).json({ error: "Lemmikute laadimine ebaõnnestus." })
+    }
+
+    const rawData = await fs.readFile(filePath, 'utf-8')
+    const data = JSON.parse(rawData)
+
+    console.log(data)
+
+    res.status(200).json(data)
+})
+
+app.post("/favorites/add/:id", async (req, res) => {
+    const filePath = "./data/favorites.json"
+    const isEmpty = await isFileEmpty(filePath)
+    if (isEmpty) {
+        console.log("Faili ei leitud või on tühi.")
+        res.status(500).json({ error: "Lemmikute laadimine ebaõnnestus." })
+    }
+
+    const productId = parseInt(req.params.id)
+    const rawData = await fs.readFile(filePath, 'utf-8')
+    const favorites = JSON.parse(rawData)
+
+    if (favorites.includes(productId)) {
+        console.log(`Product ID ${productId} is already favorited.`)
+        res.status(200).json(favorites)
+    }
+    else {
+        console.log(`Adding product ${productId} to favorites.`)
+
+        favorites.push(productId)
+        const result = await fs.writeFile(filePath, JSON.stringify(favorites))
+        
+        res.status(202).json(favorites)
+    }
+})
+
+app.delete("/favorites/remove/:id", async (req, res) => {
+    const filePath = "./data/favorites.json"
+    const isEmpty = await isFileEmpty(filePath)
+    if (isEmpty) {
+        console.log("Faili ei leitud või on tühi.")
+        res.status(500).json({ error: "Lemmikute laadimine ebaõnnestus." })
+    }
+
+    const productId = parseInt(req.params.id)
+    const rawData = await fs.readFile(filePath, 'utf-8')
+    const favorites = JSON.parse(rawData)
+
+    if (favorites.includes(productId)) {
+        console.log(`Removing Product ID ${productId} from favorites`)
+
+        const index = favorites.indexOf(productId)
+
+        if (index > -1) {
+            favorites.splice(index, 1)
+            const result = await fs.writeFile(filePath, JSON.stringify(favorites))
+
+            res.status(200).json(favorites)
+        }
+    }
+    else {
+        console.log(`Product ID ${productId} is not favorited.`)
+        
+        res.status(200).json(favorites)
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`Server funkab: http://localhost:${PORT}`);
 })

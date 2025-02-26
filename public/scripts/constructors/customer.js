@@ -1,4 +1,4 @@
-import { saveFavorites } from "../localstorage.js"
+import { addFavorite, removeFavorite } from "../api.js"
 import { setNavFavItemCount } from "../main.js"
 
 export class Customer {
@@ -16,13 +16,14 @@ export class Customer {
     toggleFavorite(productId) {
         if (!this.hasFavorite(productId)) {
             this.favorites.push(productId)
+            addFavorite(productId)
         }
         else {
             this.favorites = this.favorites.filter(favId => favId !== productId)
+            removeFavorite(productId)
         }
 
         setNavFavItemCount(this.favorites.length)
-        saveFavorites(this.favorites)
     }
 
     placeOrder(order) {

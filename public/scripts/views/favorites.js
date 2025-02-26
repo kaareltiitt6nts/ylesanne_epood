@@ -1,6 +1,5 @@
 import { getProductById } from "../api.js"
-import { customer } from "../constructors/customer.js"
-import { getFavorites } from "../localstorage.js"
+import { getFavorites } from "../api.js"
 import { createProductCard } from "./products.js"
 
 export async function displayFavorites() {
@@ -14,20 +13,27 @@ export async function displayFavorites() {
     const favView = document.createElement("div")
     favView.id = "productsView"
 
-    const favorites = await getFavorites()
-
     mainContainer.append(favContainer)
     favContainer.append(favView)
 
+    const favorites = await getFavorites();
+
     if (favorites.length === 0) {
-        favView.innerHTML = "Te pole ühtegi lemmikut toodet lisanud."
+        favView.innerHTML = "Te pole ühtegi lemmikut toodet lisanud.";
+        return;
     }
-    else {
-        favorites.forEach(productId => {
-            const product = getProductById(productId)
+
+    try {
+        favorites.forEach(async (id) => {
+            const product = await getProductById(parseInt(id))
+            
             if (product) {
                 favView.append(createProductCard(product))
             }
         });
+
+    } catch (error) {
+        favView.innerHTML = "Viga lemmikute laadimisel.";
+        console.error("Error loading favorites:", error);
     }
 }    

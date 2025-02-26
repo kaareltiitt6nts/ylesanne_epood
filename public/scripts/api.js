@@ -1,5 +1,6 @@
 import { Cart } from "./constructors/cart.js"
 import { Product } from "./constructors/product.js"
+import { setNavFavItemCount } from "./main.js"
 
 const API_URL = "https://fakestoreapi.com"
 
@@ -17,7 +18,7 @@ export const getProductById = async (productId) => {
     try {
         const productData = await fetch(`/product/${productId}`)
         const product = await productData.json()
-        
+
         return new Product(
             product.id,
             product.title,
@@ -66,5 +67,51 @@ export const getCartById = async (cartId) => {
         return cart
     } catch (error) {
         console.error(error)
+    }
+}
+
+export const getFavorites = async () => {
+    try {
+        const favorites = await fetch("/favorites")
+        .then(result => result.json())
+        
+        setNavFavItemCount(favorites.length)
+        
+        return favorites
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+export const addFavorite = async (productId) => {
+    try {
+        const res = await fetch(`/favorites/add/${productId}`, {
+            method: "POST"
+        })
+        .then(result => result.json())
+        
+        setNavFavItemCount(res.length)
+
+        return res
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+export const removeFavorite = async (productId) => {
+    try {
+        const res = await fetch(`/favorites/remove/${productId}`, {
+            method: "DELETE"
+        })
+        .then(result => result.json())
+
+        setNavFavItemCount(res.length)
+        
+        return res
+    }
+    catch (error) {
+        console.log(error)
     }
 }

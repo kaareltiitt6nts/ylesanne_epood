@@ -24,7 +24,7 @@ export function createProductCard(product) {
     `
 
     const favButton = productCard.querySelector("#favButton")
-    if (customer.hasFavorite(product)) {
+    if (customer.hasFavorite(product.id)) {
         favButton.innerHTML = "Eemalda lemmikutest"
     }
 

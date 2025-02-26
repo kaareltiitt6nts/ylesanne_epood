@@ -1,5 +1,5 @@
 import { displayProducts } from "./views/products.js"
-import { getProductsByCategory, getProductsData } from "./api.js"
+import { getFavorites, getProductsByCategory, getProductsData } from "./api.js"
 import { Product } from "./constructors/product.js"
 import { navigateTo } from "./router.js"
 import { cart } from "./constructors/cart.js"
@@ -23,6 +23,7 @@ const init = async () => {
     const toProducts = document.querySelector("#toProducts")
     const toCart = document.querySelector("#toCart")
     const toFavorites  = document.querySelector("#toFavorites")
+    const favorites = await getFavorites()
 
     toProducts.onclick = (event) => {
         event.preventDefault()
@@ -40,6 +41,9 @@ const init = async () => {
         event.preventDefault()
         navigateTo("products")
     }
+
+    customer.favorites = favorites
+    setNavFavItemCount(favorites.length)
 
     displayProducts()
 }
